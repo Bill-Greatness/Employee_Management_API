@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-const uuid = require ('uuid');
-
 const user = new mongoose.Schema({
   key: {
     /*
@@ -10,16 +8,15 @@ const user = new mongoose.Schema({
     and a membership form will be handed to the to file
     */
     type: String,
-    required: false,
-    default: uuid.v4(),
-    unique:true,
-  }, 
+    required: true,
+    unique: true,
+  },
   email: {
     type: String,
     required: true,
     min: 6,
     max: 255,
-    unique:true,
+    unique: true,
   },
   password: {
     type: String,

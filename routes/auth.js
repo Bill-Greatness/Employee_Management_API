@@ -1,9 +1,13 @@
 const router = require("express").Router();
 const User = require("../model/User");
+const Employee = require("../model/Employee");
 const token = require("jsonwebtoken");
 
-const { validate_login } = require("../validators");
-
+const {
+  validate_signup,
+  validate_login,
+  validate_employee,
+} = require("../validators");
 
 router.post("/login", async (req, res) => {
   const { error, value } = validate_login(req.body);
@@ -19,9 +23,18 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/get_key", (req, res) => {
-  const user = new User({ email: req.body.email, password: req.body.password });
-  user.save();
-  res.send(user);
+  const { err, value } = validate_employee(req.body);
+  if (err) return res.send({ Error: err.message });
+  const employee = new Employee(value);
+  employee.save();
+  res.send({ Key: employee.key });
 });
 
+router.post("/signup", (req, res) => {
+  const { err, value } = validate_signup(req.body);
+  if (err) return res.send({ Error: err.message });
+  const user = new User(value);
+  user.save();
+  res.send({ Message: "plaese Login to continue" });
+});
 module.exports = router;
