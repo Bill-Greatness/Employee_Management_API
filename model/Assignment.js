@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const Assignment = new mongoose.Schema({
-  trainer_id: { type: String, required: true },
+  employee_id: { type: String, required: true },
   school: { type: String, required: true },
   role: { type: String, required: true },
   student_no: { type: String, required: true },

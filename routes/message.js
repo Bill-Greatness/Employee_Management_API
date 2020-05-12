@@ -47,18 +47,44 @@ router.post("/", (req, res) => {
 });
 
 // updating specific message
-router.post("/:id", (req, res) => {});
+router.post("/:id", (req, res) => {
+  Message.update(
+    { _id: req.params.id, from: req._sit_map.id },
+    req.body,
+    (err, data) => {
+      if (err) return res.send({ Error: err.message });
+      if (!data) return res.send({ Error: "No Message Found" });
+      res.send(data);
+    }
+  );
+});
 
 // deleting specific message
-router.delete("/:id", (req, res) => {});
-
-// deleting all message
-router.delete("/", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  Message.deleteOne(
+    { _id: req.params.id, from: req._sit_map.id },
+    { ...req.body },
+    (err, value) => {
+      if (err) return res.send({ Error: err.message });
+      res.send(value);
+    }
+  );
+});
 
 // grabing specific recived message
-router.get("/:from", (req, res) => {});
+router.get("/:from", (req, res) => {
+  Message.find({ from: req._sit_map.id }, (err, data) => {
+    if (err) return res.send({ Error: err.message });
+    res.send(data);
+  });
+});
 
 // grabing specific sent message
-router.get("/:to", (req, res) => {});
+router.get("/:to", (req, res) => {
+  Message.find({ to: req._sit_map.id }, (err, data) => {
+    if (err) return res.send({ Error: err.message });
+    res.send(data);
+  });
+});
 
 module.exports = router;

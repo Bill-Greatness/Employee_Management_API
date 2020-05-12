@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const Payment = new mongoose.Schema({
   key: { type: String, required: false },

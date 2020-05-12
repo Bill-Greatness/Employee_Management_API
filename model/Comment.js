@@ -1,12 +1,16 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const commentSchema = new mongoose.Schema({
-  user_id: {
+  employee_id: {
     type: String,
     required: true,
   },
   comment: {
     type: String,
     required: true,
+  },
+  meeting_id:{
+    type:String,
+    required:true,
   },
   date: {
     type: Date,

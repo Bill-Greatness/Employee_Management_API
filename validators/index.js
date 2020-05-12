@@ -91,10 +91,43 @@ const paymentSchema = joi.object({
 function validate_payment(data) {
   return paymentSchema.validate(data);
 }
-// module.exports.validate_note = validate_note;
-// module.exports.validate_login = validate_login;
-// module.exports.validate_institution = validate_institution;
-// module.exports.validate_message = validate_message;
+
+const asignmentSchema = joi.object({
+  employee_id: joi.string().required(),
+  school: joi.string().required(),
+  role: joi.string().required(),
+  student_no: joi.string().required(),
+});
+function validate_assignment(data) {
+  return asignmentSchema.validate(data);
+}
+
+const attendanceSchema = joi.object({
+  employee_id: joi.string().required(),
+  meeting_id: joi.string(),
+});
+function validate_attendance(data) {
+  return attendanceSchema.validate(data);
+}
+
+const commentSchema = joi.object({
+  employee_id: joi.string().required(),
+  comment: joi.string().required(),
+  meeting_id: joi.string().required(),
+});
+
+function validate_comment(data) {
+  return commentSchema.validate(data);
+}
+
+const meeting = joi.object({
+  topic: joi.string().required(),
+  date : joi.date().required(),
+});
+
+function validate_meeting(data) {
+  return meeting.validate(data);
+}
 module.exports = {
   validate_note,
   validate_login,
@@ -103,5 +136,9 @@ module.exports = {
   validate_trainee,
   validate_employee,
   validate_signup,
-  validate_payment
+  validate_payment,
+  validate_assignment,
+  validate_attendance,
+  validate_comment,
+  validate_meeting,
 };

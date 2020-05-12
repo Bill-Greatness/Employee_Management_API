@@ -6,7 +6,7 @@ const { validate_payment } = require("../validators");
 // checking authrization
 router.use(verify);
 
-// getting all notes
+// getting all payments
 router.get("/", (req, res) => {
   const payment = Payment.find(
     { $or: [{ employee_id: req._sit_map._id }, { key: req._sit_map._id }] },
@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
   );
 });
 
-// grabing specific note
+// grabing specific payment
 router.get("/:id", (req, res) => {
   Payment.findOne({ _id: req.params.id }, (err, data) => {
     if (err) {
@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// adding note
+// adding payment
 router.post("/", (req, res) => {
   const { error, value } = validate_payment(req.body);
   if (error) return res.send({ Error: error.message });
@@ -42,7 +42,7 @@ router.post("/", (req, res) => {
   });
 });
 
-// updating specific note
+// updating specific payment
 router.patch("/:id", async (req, res) => {
   const { error, value } = validate_payment(req.body);
   if (error) return res.send({ Error: error.message });
@@ -55,7 +55,7 @@ router.patch("/:id", async (req, res) => {
   });
 });
 
-// deleting specific note
+// deleting specific payment
 router.delete("/:id", (req, res) => {
   Payment.deleteOne({ _id: req.params.id }, (err, data) => {
     if (err) {
